@@ -1,0 +1,155 @@
+// PC幅以上のみスタイル適用
+@mixin pc {
+  @if & {
+    .is-pc-device & {
+      @content;
+    }
+  } @else {
+    .is-pc-device {
+      @content;
+    }
+  }
+}
+
+// SP幅以下のみスタイル適用
+@mixin sp {
+  @if & {
+    .is-sp-device & {
+      @content;
+    }
+  } @else {
+    .is-sp-device {
+      @content;
+    }
+  }
+}
+
+// SP幅のみ表示
+@mixin only-sp {
+  @include pc {
+    display: none !important;
+  }
+}
+
+// PC幅のみ表示
+@mixin only-pc {
+  @include sp {
+    display: none !important;
+  }
+}
+
+// placeholder用
+@mixin placeholder {
+  &::-webkit-input-placeholder {
+    @content;
+  }
+
+  &:-moz-placeholder {
+    opacity: 1;
+
+    @content;
+  }
+
+  &:-ms-input-placeholder {
+    @content;
+  }
+
+  &:placeholder-shown {
+    @content;
+  }
+}
+
+// クリック要素簡単スタイリング
+// 第一・第二引数の設定で、クリック範囲を拡大できます
+@mixin clickable($size-arg-additional: 0, $size-arg-clickable-corner-radius: 0) {
+  position: relative;
+  transition: opacity 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+  text-decoration: none;
+  cursor: pointer;
+
+  &::after {
+    content: '';
+    position: absolute;
+    z-index: $zindex-easy-clickable-mask;
+    top: -$size-arg-additional;
+    left: -$size-arg-additional;
+    width: calc(100% + #{$size-arg-additional * 2});
+    height: calc(100% + #{$size-arg-additional * 2});
+    border-radius: $size-arg-clickable-corner-radius;
+    background-color: rgba(0, 0, 0, 0);
+    cursor: pointer;
+    pointer-events: auto;
+  }
+
+  &:hover {
+    @include pc {
+      opacity: 0.6;
+    }
+  }
+}
+
+// 複数行省略
+@mixin multiline-ellipsis($size-arg-line-height, $num-arg-max-lines, $color-arg-bg: #fff) {
+  position: relative;
+  max-height: $size-arg-line-height * $num-arg-max-lines;
+  overflow: hidden;
+
+  &::before,
+  &::after {
+    position: absolute;
+  }
+
+  &::before {
+    content: '…';
+    top: $size-arg-line-height * ($num-arg-max-lines - 1);
+    right: 0;
+    padding: 0 0.1em 0 0.5em;
+    background-image: linear-gradient(90deg, rgba(0, 0, 0, 0), $color-arg-bg 0.5em);
+  }
+
+  &::after {
+    content: '';
+    width: 100%;
+    height: 100%;
+    background-color: $color-arg-bg;
+  }
+}
+
+// 単数行省略
+@mixin single-ellipsis() {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// クリック不可能
+@mixin not-clickable {
+  cursor: default;
+  pointer-events: none;
+  user-select: none;
+  touch-action: none;
+}
+
+// ロボットには認識可能な不可視要素
+@mixin visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  overflow: hidden;
+  clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+  clip: rect(1px, 1px, 1px, 1px);
+  border: 0 !important;
+  white-space: nowrap !important;
+}
+
+// ハイパーリンクに当てられたスタイルを無効化
+@mixin inherit-link {
+  display: inherit;
+  outline: inherit;
+  color: inherit;
+
+  &:hover {
+    text-decoration: none;
+  }
+}

@@ -1,0 +1,43 @@
+// wrap
+.wrap {
+  width: 100%;
+  min-width: 320px;
+  max-width: $width-wrap-full;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: $width-wrap-padding;
+  padding-left: $width-wrap-padding;
+
+  // 固定幅
+  &--fix {
+    @include pc {
+      width: $width-wrap-full;
+    }
+
+    @include sp {
+      width: 100%;
+    }
+  }
+
+  // パディングなし
+  &--pad0 {
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  // PCでパディングなし
+  &--pc-pad0 {
+    @include pc {
+      padding-right: 0;
+      padding-left: 0;
+    }
+  }
+
+  // SPでパディングなし
+  &--sp-pad0 {
+    @include sp {
+      padding-right: 0;
+      padding-left: 0;
+    }
+  }
+}

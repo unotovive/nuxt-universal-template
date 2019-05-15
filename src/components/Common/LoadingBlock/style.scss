@@ -1,0 +1,14 @@
+.loading-block {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+
+  @include pc {
+    height: 200px;
+  }
+
+  @include sp {
+    height: 100px;
+  }
+}

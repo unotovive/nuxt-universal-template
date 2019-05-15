@@ -1,0 +1,8 @@
+{
+  "hooks": {
+    "post-checkout": "yarn maps",
+    "pre-commit": "lint-staged",
+    "pre-push": "node ./lib/git/prepush && yarn checks-all && yarn fixes && yarn maps && git add && yarn test",
+    "commit-msg": "commitlint -E HUSKY_GIT_PARAMS && node ./lib/git/fix-commit-prefix-emoji"
+  }
+}

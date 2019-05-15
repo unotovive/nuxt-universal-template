@@ -1,0 +1,46 @@
+{
+  "root": true,
+  "env": {
+    "browser": true,
+    "node": true,
+    "jest": true
+  },
+  "parserOptions": {
+    "parser": "babel-eslint"
+  },
+  "extends": [
+    "eslint:recommended",
+    "google",
+    "plugin:vue/recommended",
+    "plugin:prettier/recommended"
+  ],
+  "plugins": ["vue", "prettier", "import"],
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [
+          ".js",
+          ".vue"
+        ]
+      }
+    }
+  },
+  "rules": {
+    "comma-dangle": "off",
+    "func-names": "off",
+    "max-len": "off",
+    "no-console": "off",
+    "no-debugger": "off",
+    "no-invalid-this": "off",
+    "no-extend-native": "off",
+    "import/order": "error",
+    "import/extensions": ["error", "never"],
+    "vue/max-attributes-per-line": ["error", {
+      "singleline": 20,
+      "multiline": {
+        "max": 1,
+        "allowFirstLine": false
+      }
+    }]
+  }
+}

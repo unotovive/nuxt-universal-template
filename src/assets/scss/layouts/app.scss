@@ -1,0 +1,9 @@
+.app {
+  @include pc {
+    min-width: $width-wrap-full;
+  }
+
+  @include sp {
+    min-width: 320px;
+  }
+}

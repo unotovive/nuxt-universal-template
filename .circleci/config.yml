@@ -1,0 +1,47 @@
+executors:
+  default:
+    machine:
+      image: circleci/classic:edge
+    working_directory: ~/LAB
+
+version: 2.1
+jobs:
+  unit:
+    docker:
+      - image: circleci/node:10.13.0-stretch
+    working_directory: ~/LAB
+    steps:
+      - checkout
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - restore_cache:
+          keys:
+            - yarn-packages-{{ checksum "yarn.lock" }}
+      - run:
+          name: Create repository
+          command: mkdir -p ./reports
+          when: always
+      - run:
+          name: Install node modules
+          command: yarn
+      - save_cache:
+          key: yarn-packages-{{ checksum "yarn.lock" }}
+          paths:
+            - ./node_modules
+      - run:
+          name: Run test
+          command: yarn coverage
+          timeout: 300
+          when: always
+      - store_test_results:
+          path: ./reports
+      - store_artifacts:
+          path: ./reports
+workflows:
+  version: 2
+  test_and_deploy:
+    jobs:
+      - unit:
+          filters:
+            tags:
+              only: /.*/

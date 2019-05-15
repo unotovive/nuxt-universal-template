@@ -1,0 +1,19 @@
+.home {
+  background-color: #fff;
+
+  // サンプルアイコン
+  &__icon {
+    @include clickable(15px);
+
+    display: block;
+    width: 100px;
+
+    @include pc {
+      background-color: #555;
+    }
+
+    @include sp {
+      background-color: #aaa;
+    }
+  }
+}
